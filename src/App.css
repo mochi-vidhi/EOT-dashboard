@@ -1,0 +1,652 @@
+/* ─────────────────────────────────────────────────────────────
+   App.css — EOT Dashboard Global Styles
+   Font: Inter Variable  |  Theme: light / dark
+───────────────────────────────────────────────────────────── */
+
+/* ── Root layout shell ── */
+#root {
+    display: flex;
+    flex-direction: column;
+    min-height: 100dvh;
+    isolation: isolate;
+}
+
+/* ══════════════════════════════════════════
+   LOGIN PAGE  —  Split-Screen Layout
+══════════════════════════════════════════ */
+
+/* Outer wrapper fills the viewport */
+.login-page {
+    display: flex;
+    min-height: 100dvh;
+    width: 100%;
+    background-color: var(--background);
+    font-family: var(--font-sans);
+}
+
+/* ── Left panel (form side) ── */
+.login-left {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    min-height: 100dvh;
+    padding: 3rem 4rem;
+    background-color: var(--background);
+    z-index: 1;
+}
+
+/* Subtle animated gradient blob behind form */
+.login-left::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+        ellipse 80% 60% at 20% 30%,
+        oklch(0.60 0.14 255 / 0.08),
+        transparent 70%
+    );
+    pointer-events: none;
+}
+
+.dark .login-left::before {
+    background: radial-gradient(
+        ellipse 80% 60% at 20% 30%,
+        oklch(0.60 0.18 255 / 0.12),
+        transparent 70%
+    );
+}
+
+/* ── Right panel (image side) ── */
+.login-right {
+    position: relative;
+    width: 50%;
+    min-height: 100dvh;
+    overflow: hidden;
+    clip-path: polygon(4% 0%, 100% 0%, 100% 100%, 0% 100%);
+}
+
+.login-right-image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+/* Gradient overlay on image */
+.login-right-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        135deg,
+        oklch(0.20 0.10 255 / 0.75) 0%,
+        oklch(0.10 0.05 255 / 0.50) 60%,
+        transparent 100%
+    );
+}
+
+/* Text content on the image panel */
+.login-right-content {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 3rem;
+    color: #fff;
+}
+
+.login-right-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.375rem 0.875rem;
+    border-radius: 9999px;
+    background: oklch(1 0 0 / 0.15);
+    backdrop-filter: blur(8px);
+    border: 1px solid oklch(1 0 0 / 0.20);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #fff;
+    width: fit-content;
+    margin-bottom: 1rem;
+}
+
+.login-right-title {
+    font-size: clamp(1.5rem, 3vw, 2.25rem);
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 0.75rem;
+    color: #fff;
+}
+
+.login-right-subtitle {
+    font-size: 0.9375rem;
+    color: oklch(1 0 0 / 0.75);
+    max-width: 28rem;
+    line-height: 1.6;
+}
+
+/* ── Form card ── */
+.login-card {
+    position: relative;
+    width: 100%;
+    max-width: 26rem;
+    z-index: 1;
+}
+
+/* Brand / logo area */
+.login-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    margin-bottom: 2.25rem;
+}
+
+.login-brand-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 0.5rem;
+    background: linear-gradient(
+        135deg,
+        var(--eot-primary) 0%,
+        var(--eot-accent) 100%
+    );
+    color: #fff;
+    flex-shrink: 0;
+}
+
+.login-brand-name {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--foreground);
+    letter-spacing: -0.01em;
+}
+
+.login-brand-name span {
+    color: var(--eot-primary);
+}
+
+/* Headings */
+.login-heading {
+    font-size: clamp(1.5rem, 2.5vw, 1.875rem);
+    font-weight: 700;
+    color: var(--foreground);
+    letter-spacing: -0.02em;
+    margin-bottom: 0.375rem;
+    line-height: 1.2;
+}
+
+.login-subheading {
+    font-size: 0.9375rem;
+    color: var(--muted-foreground);
+    margin-bottom: 2rem;
+}
+
+/* ── Tab switcher (Email+Pass / OTP) ── */
+.login-tabs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+    background: var(--muted);
+    border-radius: var(--radius-lg);
+    padding: 0.25rem;
+    margin-bottom: 1.75rem;
+    border: 1px solid var(--border);
+}
+
+.login-tab {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.5625rem 1rem;
+    border-radius: calc(var(--radius-lg) - 2px);
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: inherit;
+    white-space: nowrap;
+}
+
+.login-tab:hover {
+    color: var(--foreground);
+    background: var(--accent);
+}
+
+.login-tab.active {
+    color: var(--primary);
+    background: var(--card);
+    box-shadow:
+        0 1px 3px oklch(0 0 0 / 0.10),
+        0 1px 2px oklch(0 0 0 / 0.06);
+    border: 1px solid var(--border);
+}
+
+.dark .login-tab.active {
+    background: var(--card);
+    box-shadow:
+        0 1px 3px oklch(0 0 0 / 0.30),
+        0 0 0 1px var(--border);
+}
+
+/* ── Input fields ── */
+.login-field {
+    position: relative;
+    margin-bottom: 0.875rem;
+}
+
+.login-field-icon {
+    position: absolute;
+    left: 0.875rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--muted-foreground);
+    width: 1rem;
+    height: 1rem;
+    pointer-events: none;
+    flex-shrink: 0;
+}
+
+.login-field-suffix {
+    position: absolute;
+    right: 0.875rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--muted-foreground);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0.125rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.25rem;
+    transition: color 0.15s ease;
+}
+
+.login-field-suffix:hover {
+    color: var(--foreground);
+}
+
+.login-input {
+    width: 100%;
+    height: 2.875rem;
+    padding: 0 0.875rem 0 2.625rem;
+    border-radius: var(--radius-lg);
+    border: 1.5px solid var(--border);
+    background: var(--card);
+    color: var(--foreground);
+    font-size: 0.9375rem;
+    font-family: inherit;
+    font-weight: 400;
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
+    outline: none;
+}
+
+.login-input::placeholder {
+    color: var(--muted-foreground);
+    font-weight: 400;
+}
+
+.login-input:focus {
+    border-color: var(--eot-primary);
+    box-shadow:
+        0 0 0 3px oklch(0.42 0.16 255 / 0.12),
+        0 1px 2px oklch(0 0 0 / 0.05);
+}
+
+.dark .login-input:focus {
+    box-shadow:
+        0 0 0 3px oklch(0.60 0.18 255 / 0.20),
+        0 1px 2px oklch(0 0 0 / 0.20);
+}
+
+.login-input:hover:not(:focus) {
+    border-color: var(--eot-primary-light);
+}
+
+/* Input with suffix icon needs extra right padding */
+.login-input.has-suffix {
+    padding-right: 2.75rem;
+}
+
+/* ── Checkbox row ── */
+.login-checkbox-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.625rem;
+    margin-bottom: 1.375rem;
+    font-size: 0.875rem;
+    color: var(--muted-foreground);
+    line-height: 1.5;
+}
+
+.login-checkbox {
+    width: 1rem;
+    height: 1rem;
+    margin-top: 0.1rem;
+    flex-shrink: 0;
+    accent-color: var(--eot-primary);
+    cursor: pointer;
+    border-radius: 0.25rem;
+}
+
+.login-checkbox-row a {
+    color: var(--eot-primary);
+    text-decoration: none;
+    font-weight: 500;
+}
+.login-checkbox-row a:hover {
+    text-decoration: underline;
+}
+
+/* ── Primary CTA button ── */
+.login-btn-primary {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    width: 100%;
+    height: 2.875rem;
+    border-radius: var(--radius-lg);
+    border: none;
+    background: linear-gradient(
+        135deg,
+        var(--eot-primary) 0%,
+        var(--eot-primary-dark) 100%
+    );
+    color: #fff;
+    font-family: inherit;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    cursor: pointer;
+    transition:
+        opacity 0.2s ease,
+        transform 0.15s ease,
+        box-shadow 0.2s ease;
+    box-shadow:
+        0 2px 8px oklch(0.42 0.16 255 / 0.30),
+        0 1px 3px oklch(0 0 0 / 0.10);
+    position: relative;
+    overflow: hidden;
+}
+
+.login-btn-primary::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, oklch(1 0 0 / 0.10), transparent);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.login-btn-primary:hover::after {
+    opacity: 1;
+}
+
+.login-btn-primary:hover {
+    box-shadow:
+        0 4px 16px oklch(0.42 0.16 255 / 0.40),
+        0 2px 6px oklch(0 0 0 / 0.12);
+    transform: translateY(-1px);
+}
+
+.login-btn-primary:active {
+    transform: translateY(0);
+    box-shadow:
+        0 1px 4px oklch(0.42 0.16 255 / 0.30),
+        0 1px 2px oklch(0 0 0 / 0.08);
+}
+
+/* ── Divider ── */
+.login-divider {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin: 1.375rem 0;
+    color: var(--muted-foreground);
+    font-size: 0.8125rem;
+}
+
+.login-divider::before,
+.login-divider::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+}
+
+/* ── Footer redirect link ── */
+.login-footer {
+    text-align: center;
+    font-size: 0.875rem;
+    color: var(--muted-foreground);
+    margin-top: 1.375rem;
+}
+
+.login-footer a,
+.login-footer button {
+    color: var(--eot-primary);
+    font-weight: 600;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: inherit;
+    text-decoration: none;
+    padding: 0;
+    margin-left: 0.25rem;
+}
+
+.login-footer a:hover,
+.login-footer button:hover {
+    text-decoration: underline;
+}
+
+/* ── Error / success messages ── */
+.login-error {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.625rem 0.875rem;
+    border-radius: var(--radius-md);
+    background: oklch(0.577 0.245 27.325 / 0.10);
+    border: 1px solid oklch(0.577 0.245 27.325 / 0.25);
+    color: var(--destructive);
+    font-size: 0.875rem;
+    margin-bottom: 1rem;
+}
+
+/* ── Theme toggle pill ── */
+.theme-toggle {
+    position: fixed;
+    top: 1.25rem;
+    right: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.4rem 0.875rem;
+    border-radius: 9999px;
+    border: 1.5px solid var(--border);
+    background: var(--card);
+    color: var(--foreground);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    font-family: inherit;
+    cursor: pointer;
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+    box-shadow: 0 1px 4px oklch(0 0 0 / 0.08);
+    z-index: 50;
+}
+
+.theme-toggle:hover {
+    background: var(--accent);
+    border-color: var(--eot-primary);
+    box-shadow: 0 2px 8px oklch(0 0 0 / 0.12);
+}
+
+/* ── OTP input group ── */
+.otp-group {
+    display: flex;
+    gap: 0.625rem;
+    justify-content: center;
+    margin-bottom: 0.875rem;
+}
+
+.otp-input {
+    width: 3rem;
+    height: 3.25rem;
+    text-align: center;
+    font-size: 1.25rem;
+    font-weight: 700;
+    border-radius: var(--radius-lg);
+    border: 1.5px solid var(--border);
+    background: var(--card);
+    color: var(--foreground);
+    font-family: var(--font-mono);
+    outline: none;
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.otp-input:focus {
+    border-color: var(--eot-primary);
+    box-shadow: 0 0 0 3px oklch(0.42 0.16 255 / 0.15);
+}
+
+.dark .otp-input:focus {
+    box-shadow: 0 0 0 3px oklch(0.60 0.18 255 / 0.20);
+}
+
+/* ── Resend OTP link ── */
+.otp-resend {
+    text-align: center;
+    font-size: 0.875rem;
+    color: var(--muted-foreground);
+    margin-bottom: 0.875rem;
+}
+
+.otp-resend button {
+    color: var(--eot-primary);
+    background: none;
+    border: none;
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 0;
+    margin-left: 0.25rem;
+}
+
+.otp-resend button:disabled {
+    color: var(--muted-foreground);
+    cursor: not-allowed;
+    font-weight: 400;
+}
+
+/* ─────────────────────────────────────────
+   Responsive  —  Tablet / Mobile
+───────────────────────────────────────── */
+@media (max-width: 1024px) {
+    .login-left {
+        width: 55%;
+        padding: 2.5rem 2.5rem;
+    }
+    .login-right {
+        width: 45%;
+        clip-path: polygon(6% 0%, 100% 0%, 100% 100%, 0% 100%);
+    }
+}
+
+@media (max-width: 768px) {
+    .login-page {
+        flex-direction: column;
+    }
+    .login-left {
+        width: 100%;
+        min-height: auto;
+        padding: 2rem 1.5rem 2.5rem;
+    }
+    .login-right {
+        width: 100%;
+        height: 220px;
+        min-height: unset;
+        clip-path: none;
+        order: -1;
+    }
+    .login-right-content {
+        padding: 1.5rem;
+        justify-content: center;
+    }
+    .login-right-title {
+        font-size: 1.25rem;
+    }
+    .login-right-subtitle {
+        display: none;
+    }
+    .login-card {
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .login-left {
+        padding: 1.5rem 1rem 2rem;
+    }
+    .otp-input {
+        width: 2.5rem;
+        height: 2.875rem;
+        font-size: 1.125rem;
+    }
+    .otp-group {
+        gap: 0.375rem;
+    }
+}
+
+/* ── Smooth entrance animations ── */
+@keyframes fade-up {
+    from {
+        opacity: 0;
+        transform: translateY(16px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fade-in {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+.login-card {
+    animation: fade-up 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.login-right {
+    animation: fade-in 0.6s ease both;
+}
+
